@@ -33,7 +33,8 @@ const SignUpComponent = () => {
         }
     };
 
-    return (<div>
+    return (
+        <div>
             <h1>Sign Up</h1>
             <section>
                 <form onSubmit={handleSubmit}>

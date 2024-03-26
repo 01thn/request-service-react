@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const SignInComponent = () => {
     const [username, setUsername] = useState("");
@@ -41,6 +41,9 @@ const SignInComponent = () => {
                     <button type="submit">Sign In</button>
                     <p className="error-msg">{errorMessage}</p>
                 </form>
+            </section>
+            <section>
+                <p>Don't have an account? Let's <Link to="/sign-up">Sign Up</Link></p>
             </section>
         </div>
     );
