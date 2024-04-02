@@ -6,6 +6,7 @@ import SignUpComponent from "./components/auth/SignUp";
 import App from "./App";
 import TicketBoardComponent from "./components/ticket/TicketBoard";
 import AddTicketComponent from "./components/ticket/AddTicket";
+import TicketDetailsComponent from "./components/ticket/TicketDetails";
 
 const router = createBrowserRouter([
     {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
     {
         path: "/tickets/create",
         element: <AddTicketComponent/>,
+    },
+    {
+        path: "/tickets/:ticketId",
+        element: <TicketDetailsComponent/>,
     },
 ]);
 

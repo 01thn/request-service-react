@@ -24,7 +24,7 @@ const AddTicketComponent = () => {
             }, config);
             navigate("/tickets");
         } catch (error) {
-            if (error.response.status === 403){
+            if (error.response.status === 403) {
                 navigate("/sign-in");
             }
             console.error(`Error fetching tickets: ${error}`);

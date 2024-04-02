@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import TicketNavComponent from "./base/TicketNav";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const TicketBoardComponent = () => {
     const [tickets, setTickets] = useState([])
@@ -21,7 +21,7 @@ const TicketBoardComponent = () => {
                 console.log("Response data:", response.data);
                 setTickets(response.data.content);
             } catch (error) {
-                if (error.response.status === 403){
+                if (error.response.status === 403) {
                     navigate("/sign-in");
                 }
                 console.error(`Error fetching tickets: ${error}`);
@@ -31,7 +31,7 @@ const TicketBoardComponent = () => {
 
         fetchTickets();
 
-    }, [page, sort]);
+    }, [navigate, page, sort]);
 
     const handleSortingChange = (event) => {
         setSort(event.target.value);
@@ -83,7 +83,9 @@ const TicketBoardComponent = () => {
                     <tbody>
                     {tickets.map(ticket => (
                         <tr key={ticket.id}>
-                            <td>{ticket.title}</td>
+                            <Link to={`/tickets/${ticket.id}`}>
+                                <td>{ticket.title}</td>
+                            </Link>
                             <td>{ticket.description}</td>
                             <td>{ticket.status}</td>
                             <td>{ticket.author.username}</td>
