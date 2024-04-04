@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import axios from "axios";
 import {Link, useNavigate} from "react-router-dom";
+import {jwtDecode} from "jwt-decode";
 
 const SignInComponent = () => {
     const [username, setUsername] = useState("");
@@ -18,7 +19,9 @@ const SignInComponent = () => {
                 "password": password
             });
             const token = response.data.token;
+            const userRoles = jwtDecode(token).roles
             localStorage.setItem("token", token);
+            localStorage.setItem("roles", userRoles);
             navigate("/");
         } catch (error) {
             setErrorMessage("Something went wrong. Please, try again");

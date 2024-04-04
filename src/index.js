@@ -7,6 +7,7 @@ import App from "./App";
 import TicketBoardComponent from "./components/ticket/TicketBoard";
 import AddTicketComponent from "./components/ticket/AddTicket";
 import TicketDetailsComponent from "./components/ticket/TicketDetails";
+import TicketEditComponent from "./components/ticket/TicketEdit";
 
 const router = createBrowserRouter([
     {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
     {
         path: "/tickets/:ticketId",
         element: <TicketDetailsComponent/>,
+    },
+    {
+        path: "/tickets/:ticketId/edit",
+        element: <TicketEditComponent/>,
     },
 ]);
 

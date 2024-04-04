@@ -44,8 +44,8 @@ const AddTicketComponent = () => {
                         <input type="text" id="title" value={ticketTitle}
                                onChange={(changeEvent) => setTicketTitle(changeEvent.target.value)} required/>
                         <label htmlFor="description">Description</label>
-                        <input type="text" id="description" value={ticketDescription}
-                               onChange={(changeEvent) => setTicketDescription(changeEvent.target.value)} required/>
+                        <textarea id="description" value={ticketDescription}
+                                  onChange={(changeEvent) => setTicketDescription(changeEvent.target.value)} required/>
                     </div>
                     <button type="submit">Create</button>
                     <p>{errorMessage}</p>

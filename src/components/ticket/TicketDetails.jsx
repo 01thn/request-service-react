@@ -1,16 +1,18 @@
 import React, {useEffect, useState} from "react";
 import TicketNavComponent from "./base/TicketNav";
 import axios from "axios";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 const TicketDetailsComponent = () => {
     const {ticketId} = useParams();
     const [ticket, setTicket] = useState(null);
+    const [userRoles, setUserRoles] = useState(null);
 
     useEffect(() => {
         const fetchTicketDetails = async () => {
             try {
                 const token = localStorage.getItem("token");
+                setUserRoles(localStorage.getItem("roles"))
                 const config = {
                     headers: {Authorization: `Bearer ${token}`}
                 };
@@ -65,7 +67,19 @@ const TicketDetailsComponent = () => {
                 );
             case "SENT":
                 return (
-                    <button onClick={() => changeStatus("DRAFT")}>Cancel sending</button>
+                    <>
+                        {(userRoles.includes("ROLE_USER")) ?
+                            <button onClick={() => changeStatus("DRAFT")}>Cancel sending</button> :
+                            <button disabled onClick={() => changeStatus("DRAFT")}>Cancel sending</button>
+                        }
+
+                        {(userRoles.includes("ROLE_OPERATOR") || userRoles.includes("ROLE_ADMIN")) && (
+                            <>
+                                <button onClick={() => changeStatus("ACCEPTED")}>Accept</button>
+                                <button onClick={() => changeStatus("REJECTED")}>Reject</button>
+                            </>
+                        )}
+                    </>
                 );
             default:
                 return (
@@ -74,17 +88,40 @@ const TicketDetailsComponent = () => {
         }
     };
 
+    const getEditButton = () => {
+        return (
+            <>
+                {
+                    (userRoles.includes("ROLE_USER") && (ticket.status === "DRAFT") && (
+                        <>
+                            <Link to={`/tickets/${ticket.id}/edit`}>Edit ticket</Link>
+                        </>
+                    ))
+                }
+            </>
+        );
+    }
+
     return (
         <>
             <TicketNavComponent/>
-            {getAvailableAction()}
-            <h2>{ticket.title}</h2>
-            <p>Status: {ticket.status}</p>
-            <p>{ticket.description}</p>
-            <p>Operator: {ticket.operator != null ? ticket.operator.name : "No operator"}</p>
-            <p>{ticket.operator != null ? "Operator email: " + ticket.operator.email : ""}</p>
-            <data>Created at: {formatDate(ticket.createdAt)}</data>
-            <data>{ticket.updatedAt != null ? "Last updated at: " + formatDate(ticket.updatedAt) : ""}</data>
+            <div>
+                {getEditButton()}
+                {getAvailableAction()}
+            </div>
+            <section>
+                <h2>{ticket.title}</h2>
+                <p>Status: {ticket.status}</p>
+                <p>{ticket.description}</p>
+                <p>Operator: {ticket.operator != null ? `${ticket.operator.firstName} ${ticket.operator.lastName}` : "No operator"}</p>
+                <p>{ticket.operator != null ? "Operator email: " + ticket.operator.email : ""}</p>
+                <p>
+                    <data>Created at: {formatDate(ticket.createdAt)}</data>
+                </p>
+                <p>
+                    <data>{ticket.updatedAt != null ? "Last updated at: " + formatDate(ticket.updatedAt) : ""}</data>
+                </p>
+            </section>
         </>
     );
 };

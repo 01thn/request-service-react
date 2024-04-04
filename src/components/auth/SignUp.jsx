@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import {jwtDecode} from "jwt-decode";
 
 const SignUpComponent = () => {
     const [username, setUsername] = useState("");
@@ -26,7 +27,9 @@ const SignUpComponent = () => {
                 "lastName": lastName
             });
             const token = response.data.token;
+            const userRoles = jwtDecode(token).roles
             localStorage.setItem("token", token);
+            localStorage.setItem("roles", userRoles);
             navigate("/");
         } catch (error) {
             setErrorMessage(error.response.data);
