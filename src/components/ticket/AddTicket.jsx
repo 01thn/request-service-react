@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import axios from "axios";
-import TicketNavComponent from "./base/TicketNav";
 import {useNavigate} from "react-router-dom";
+import NavBarComponent from "../nav/NavBar";
 
 const AddTicketComponent = () => {
 
@@ -35,7 +35,7 @@ const AddTicketComponent = () => {
 
     return (
         <>
-            <TicketNavComponent/>
+            <NavBarComponent/>
             <h2>Create new ticket</h2>
             <section>
                 <form onSubmit={handleSubmit}>

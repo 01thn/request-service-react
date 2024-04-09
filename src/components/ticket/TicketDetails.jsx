@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
-import TicketNavComponent from "./base/TicketNav";
 import axios from "axios";
 import {Link, useParams} from "react-router-dom";
+import NavBarComponent from "../nav/NavBar";
 
 const TicketDetailsComponent = () => {
     const {ticketId} = useParams();
@@ -12,7 +12,7 @@ const TicketDetailsComponent = () => {
         const fetchTicketDetails = async () => {
             try {
                 const token = localStorage.getItem("token");
-                setUserRoles(localStorage.getItem("roles"))
+                setUserRoles(localStorage.getItem("roles"));
                 const config = {
                     headers: {Authorization: `Bearer ${token}`}
                 };
@@ -104,7 +104,7 @@ const TicketDetailsComponent = () => {
 
     return (
         <>
-            <TicketNavComponent/>
+            <NavBarComponent/>
             <div>
                 {getEditButton()}
                 {getAvailableAction()}

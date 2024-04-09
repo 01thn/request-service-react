@@ -8,6 +8,8 @@ import TicketBoardComponent from "./components/ticket/TicketBoard";
 import AddTicketComponent from "./components/ticket/AddTicket";
 import TicketDetailsComponent from "./components/ticket/TicketDetails";
 import TicketEditComponent from "./components/ticket/TicketEdit";
+import LogOutComponent from "./components/auth/LogOut";
+import UserPanelComponent from "./components/users/UserPanel";
 
 const router = createBrowserRouter([
     {
@@ -38,6 +40,19 @@ const router = createBrowserRouter([
         path: "/tickets/:ticketId/edit",
         element: <TicketEditComponent/>,
     },
+    {
+        path: "/logout",
+        element: <LogOutComponent/>,
+    },
+    {
+        path: "/users",
+        element: <UserPanelComponent/>,
+    },
+    // TODO gonna implement page with details in the future
+    // {
+    //     path: "/users/:userId",
+    //     element: <UserDetailsComponent/>,
+    // },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

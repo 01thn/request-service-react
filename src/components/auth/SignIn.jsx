@@ -14,6 +14,7 @@ const SignInComponent = () => {
         console.log("Username:", username);
 
         try {
+            //TODO extract to config for dynamic URI but how?
             const response = await axios.post("http://localhost:8080/auth/sign-in", {
                 "username": username,
                 "password": password

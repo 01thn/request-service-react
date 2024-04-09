@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
-import TicketNavComponent from "./base/TicketNav";
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
+import NavBarComponent from "../nav/NavBar";
 
 const TicketEditComponent = () => {
     const {ticketId} = useParams();
@@ -48,7 +48,7 @@ const TicketEditComponent = () => {
 
     return (
         <>
-            <TicketNavComponent/>
+            <NavBarComponent/>
             <section>
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="title">Title</label>
