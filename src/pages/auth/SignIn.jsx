@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import axios from "axios";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {jwtDecode} from "jwt-decode";
 
-const SignInComponent = () => {
+const SignIn = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
@@ -14,8 +14,7 @@ const SignInComponent = () => {
         console.log("Username:", username);
 
         try {
-            //TODO extract to config for dynamic URI but how?
-            const response = await axios.post("http://localhost:8080/auth/sign-in", {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/auth/sign-in`, {
                 "username": username,
                 "password": password
             });
@@ -47,10 +46,10 @@ const SignInComponent = () => {
                 </form>
             </section>
             <section>
-                <p>Don't have an account? Let's <Link to="/sign-up">Sign Up</Link></p>
+                <p>Don't have an account? Let's <button onClick={() => navigate("/sign-up")}>Sign Up</button></p>
             </section>
         </div>
     );
 }
 
-export default SignInComponent;
+export default SignIn;

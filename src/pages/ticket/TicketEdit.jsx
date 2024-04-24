@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
-import NavBarComponent from "../nav/NavBar";
 
-const TicketEditComponent = () => {
+const TicketEdit = () => {
     const {ticketId} = useParams();
     const [ticketTitle, setTicketTitle] = useState("");
     const [ticketDescription, setTicketDescription] = useState("");
@@ -17,11 +16,11 @@ const TicketEditComponent = () => {
                 const config = {
                     headers: {Authorization: `Bearer ${token}`}
                 };
-                const response = await axios.get(`http://localhost:8080/tickets/${ticketId}`, config);
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tickets/${ticketId}`, config);
                 setTicketTitle(response.data.title);
                 setTicketDescription(response.data.description);
             } catch (error) {
-                console.error("Error fetching ticket details:", error);
+                console.error("Error fetching layout details:", error);
             }
         };
 
@@ -36,7 +35,7 @@ const TicketEditComponent = () => {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             };
-            await axios.put(`http://localhost:8080/tickets/${ticketId}`, {
+            await axios.put(`${process.env.REACT_APP_SERVER_URL}/tickets/${ticketId}`, {
                 "title": ticketTitle,
                 "description": ticketDescription
             }, config);
@@ -48,7 +47,6 @@ const TicketEditComponent = () => {
 
     return (
         <>
-            <NavBarComponent/>
             <section>
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="title">Title</label>
@@ -65,4 +63,4 @@ const TicketEditComponent = () => {
     );
 }
 
-export default TicketEditComponent;
+export default TicketEdit;

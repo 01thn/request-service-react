@@ -1,25 +1,24 @@
 import React, {useEffect, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
-import NavBarComponent from "../nav/NavBar";
+import {Link, useNavigate} from "react-router-dom";
 
-const UserPanelComponent = () => {
-    const [users, setUsers] = useState([]);
+const TicketBoard = () => {
+    const [tickets, setTickets] = useState([]);
     const [page, setPage] = useState(1);
     const [sort, setSort] = useState("NO_SORT");
     const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchUsers = async () => {
+        const fetchTickets = async () => {
             try {
                 const token = localStorage.getItem("token");
                 const config = {
                     headers: {Authorization: `Bearer ${token}`}
                 };
-                const response = await axios.get(`http://localhost:8080/users?page=${page - 1}&sortingOrder=${sort}`, config);
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tickets?page=${page - 1}&sortingOrder=${sort}`, config);
                 console.log("Response data:", response.data);
-                setUsers(response.data.content);
+                setTickets(response.data.content);
             } catch (error) {
                 if (error.response.status === 403) {
                     navigate("/sign-in");
@@ -29,11 +28,10 @@ const UserPanelComponent = () => {
             }
         };
 
-        fetchUsers();
+        fetchTickets();
 
     }, [navigate, page, sort]);
 
-    // TODO same as ticket board, looks like should extract to kinda utils but how?
     const handleSortingChange = (event) => {
         setSort(event.target.value);
     };
@@ -60,10 +58,9 @@ const UserPanelComponent = () => {
 
     return (
         <>
-            <NavBarComponent/>
             <h2>Ticket board</h2>
             <section>
-                <label htmlFor="sortingOrder">Order by register date:</label>
+                <label htmlFor="sortingOrder">Order by updating date:</label>
                 <select id="sortingOrder" value={sort} onChange={handleSortingChange}>
                     <option value="NO_SORT">No Sorting</option>
                     <option value="ASC">Ascending</option>
@@ -72,26 +69,27 @@ const UserPanelComponent = () => {
                 <table border="solid">
                     <thead>
                     <tr>
-                        <th>id</th>
-                        <th>username</th>
-                        <th>email</th>
-                        <th>name</th>
-                        <th>roles</th>
-                        <th>registeredAt</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Author</th>
+                        <th>Operator</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {users.map(user => (
-                        // TODO gonna implement page with details in the future
-                        <tr key={user.id}>
-                            {/*<Link to={`/users/${user.id}`}>*/}
-                            <td>{user.id}</td>
-                            {/*</Link>*/}
-                            <td>{user.username}</td>
-                            <td>{user.email}</td>
-                            <td>{`${user.firstName} ${user.lastName.charAt(0)}.`}</td>
-                            <td>{user.roles.join(", ")}</td>
-                            <td>{formatDate(user.registeredAt)}</td>
+                    {tickets.map(ticket => (
+                        <tr key={ticket.id}>
+                            <Link to={`/tickets/${ticket.id}`}>
+                                <td>{ticket.title}</td>
+                            </Link>
+                            <td>{ticket.description}</td>
+                            <td>{ticket.status}</td>
+                            <td>{ticket.author.username}</td>
+                            <td>{ticket.operator != null ? ticket.operator.username : "-"}</td>
+                            <td>{formatDate(ticket.createdAt)}</td>
+                            <td>{formatDate(ticket.updatedAt)}</td>
                         </tr>
                     ))}
                     </tbody>
@@ -105,7 +103,6 @@ const UserPanelComponent = () => {
             </section>
         </>
     );
-
 }
 
-export default UserPanelComponent;
+export default TicketBoard;

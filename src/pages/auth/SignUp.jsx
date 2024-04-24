@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {jwtDecode} from "jwt-decode";
 
-const SignUpComponent = () => {
+const SignUp = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
@@ -18,7 +18,7 @@ const SignUpComponent = () => {
         console.log("Username:", username);
 
         try {
-            const response = await axios.post("http://localhost:8080/auth/sign-up", {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/auth/sign-up`, {
                 "username": username,
                 "password": password,
                 "email": email,
@@ -69,4 +69,4 @@ const SignUpComponent = () => {
     );
 }
 
-export default SignUpComponent;
+export default SignUp;

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {NavLink} from "react-router-dom";
 
-const NavBarComponent = () => {
+const TicketNavBarComponent = () => {
     const [userRoles, setUserRoles] = useState([]);
 
     useEffect(() => {
@@ -17,14 +17,13 @@ const NavBarComponent = () => {
         return (
             <>
                 {
-                    (userRoles.includes("ROLE_ADMIN")) && (<li>
+                    (userRoles != null) && (userRoles.includes("ROLE_ADMIN")) && (<li>
                         <li><NavLink to="/users">Users panel</NavLink></li>
                     </li>)
                 }
             </>
         )
     }
-    //TODO mark links as already chosen but how to do it dynamically?
     return (
         <nav>
             <ul>
@@ -37,4 +36,4 @@ const NavBarComponent = () => {
     );
 }
 
-export default NavBarComponent;
+export default TicketNavBarComponent;

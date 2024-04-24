@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Link, useParams} from "react-router-dom";
-import NavBarComponent from "../nav/NavBar";
 
-const TicketDetailsComponent = () => {
+const TicketDetails = () => {
     const {ticketId} = useParams();
     const [ticket, setTicket] = useState(null);
     const [userRoles, setUserRoles] = useState(null);
@@ -16,10 +15,10 @@ const TicketDetailsComponent = () => {
                 const config = {
                     headers: {Authorization: `Bearer ${token}`}
                 };
-                const response = await axios.get(`http://localhost:8080/tickets/${ticketId}`, config);
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tickets/${ticketId}`, config);
                 setTicket(response.data);
             } catch (error) {
-                console.error("Error fetching ticket details:", error);
+                console.error("Error fetching layout details:", error);
             }
         };
 
@@ -49,13 +48,13 @@ const TicketDetailsComponent = () => {
                 headers: {Authorization: `Bearer ${token}`}
             };
             const response = await axios.patch(
-                `http://localhost:8080/tickets/${ticketId}?status=${newStatus}`,
+                `${process.env.REACT_APP_SERVER_URL}/tickets/${ticketId}?status=${newStatus}`,
                 {},
                 config
             );
             setTicket(response.data);
         } catch (error) {
-            console.error('Error updating ticket status:', error);
+            console.error('Error updating layout status:', error);
         }
     };
 
@@ -68,12 +67,12 @@ const TicketDetailsComponent = () => {
             case "SENT":
                 return (
                     <>
-                        {(userRoles.includes("ROLE_USER")) ?
+                        {(userRoles != null) && (userRoles.includes("ROLE_USER")) ?
                             <button onClick={() => changeStatus("DRAFT")}>Cancel sending</button> :
                             <button disabled onClick={() => changeStatus("DRAFT")}>Cancel sending</button>
                         }
 
-                        {(userRoles.includes("ROLE_OPERATOR") || userRoles.includes("ROLE_ADMIN")) && (
+                        {(userRoles != null) && (userRoles.includes("ROLE_OPERATOR") || userRoles.includes("ROLE_ADMIN")) && (
                             <>
                                 <button onClick={() => changeStatus("ACCEPTED")}>Accept</button>
                                 <button onClick={() => changeStatus("REJECTED")}>Reject</button>
@@ -92,7 +91,7 @@ const TicketDetailsComponent = () => {
         return (
             <>
                 {
-                    (userRoles.includes("ROLE_USER") && (ticket.status === "DRAFT") && (
+                    (userRoles != null) && (userRoles.includes("ROLE_USER") && (ticket.status === "DRAFT") && (
                         <>
                             <Link to={`/tickets/${ticket.id}/edit`}>Edit ticket</Link>
                         </>
@@ -104,7 +103,6 @@ const TicketDetailsComponent = () => {
 
     return (
         <>
-            <NavBarComponent/>
             <div>
                 {getEditButton()}
                 {getAvailableAction()}
@@ -126,4 +124,4 @@ const TicketDetailsComponent = () => {
     );
 };
 
-export default TicketDetailsComponent;
+export default TicketDetails;

@@ -1,9 +1,8 @@
 import React, {useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import NavBarComponent from "../nav/NavBar";
 
-const AddTicketComponent = () => {
+const AddTicket = () => {
 
     const [ticketTitle, setTicketTitle] = useState("");
     const [ticketDescription, setTicketDescription] = useState("");
@@ -18,7 +17,7 @@ const AddTicketComponent = () => {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             };
-            await axios.post("http://localhost:8080/tickets", {
+            await axios.post(`${process.env.REACT_APP_SERVER_URL}/tickets`, {
                 "title": ticketTitle,
                 "description": ticketDescription
             }, config);
@@ -35,7 +34,6 @@ const AddTicketComponent = () => {
 
     return (
         <>
-            <NavBarComponent/>
             <h2>Create new ticket</h2>
             <section>
                 <form onSubmit={handleSubmit}>
@@ -56,4 +54,4 @@ const AddTicketComponent = () => {
 
 }
 
-export default AddTicketComponent;
+export default AddTicket;

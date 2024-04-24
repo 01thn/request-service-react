@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 
-const LogOutComponent = () => {
+const LogOut = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -12,4 +12,4 @@ const LogOutComponent = () => {
 
 }
 
-export default LogOutComponent;
+export default LogOut;
