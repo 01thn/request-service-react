@@ -1,5 +1,5 @@
 import React from "react";
-import TicketNavBarComponent from "../nav/TicketNavBar";
+import TicketNavBarComponent from "../../components/nav/ticket/TicketNavBar";
 import {Outlet} from "react-router-dom";
 
 const TicketLayout = () => {

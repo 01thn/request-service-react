@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
-const AddTicket = () => {
+const TicketCreate = () => {
 
     const [ticketTitle, setTicketTitle] = useState("");
     const [ticketDescription, setTicketDescription] = useState("");
@@ -54,4 +54,4 @@ const AddTicket = () => {
 
 }
 
-export default AddTicket;
+export default TicketCreate;

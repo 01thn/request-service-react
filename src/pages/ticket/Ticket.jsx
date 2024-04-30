@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Link, useParams} from "react-router-dom";
 
-const TicketDetails = () => {
+const Ticket = () => {
     const {ticketId} = useParams();
     const [ticket, setTicket] = useState(null);
     const [userRoles, setUserRoles] = useState(null);
@@ -124,4 +124,4 @@ const TicketDetails = () => {
     );
 };
 
-export default TicketDetails;
+export default Ticket;

@@ -1,17 +1,16 @@
 import {createBrowserRouter} from "react-router-dom";
-import SignIn from "./pages/auth/SignIn";
-import SignUp from "./pages/auth/SignUp";
-import TicketBoard from "./pages/ticket/TicketBoard";
-import AddTicket from "./pages/ticket/AddTicket";
-import TicketDetails from "./pages/ticket/TicketDetails";
-import TicketEdit from "./pages/ticket/TicketEdit";
-import LogOut from "./pages/auth/LogOut";
+import SignIn from "./pages/sign-in/SignIn";
+import SignUp from "./pages/sign-up/SignUp";
+import TicketBoard from "./pages/ticket_board/TicketBoard";
+import TicketCreate from "./pages/ticket_create/TicketCreate";
+import Ticket from "./pages/ticket/Ticket";
+import TicketEdit from "./pages/ticket_edit/TicketEdit";
 import React from "react";
 import Landing from "./pages/landing/Landing";
-import TicketLayout from "./components/layout/TicketLayout";
-import AdminLayout from "./components/layout/AdminLayout";
-import UserBoard from "./pages/admin/UserBoard";
-import UserDetails from "./pages/admin/UserDetails";
+import TicketLayout from "./layout/ticket/TicketLayout";
+import AdminLayout from "./layout/admin/AdminLayout";
+import UserBoard from "./pages/user_board/UserBoard";
+import User from "./pages/user/User";
 
 const router = createBrowserRouter([
     {
@@ -31,19 +30,15 @@ const router = createBrowserRouter([
         element: <TicketLayout/>,
         children: [
             {index: true, element: <TicketBoard/>},
-            {path: 'create', element: <AddTicket/>},
+            {path: 'create', element: <TicketCreate/>},
             {
                 path: ':ticketId',
-                element: <TicketDetails/>,
+                element: <Ticket/>,
                 children: [
                     {path: 'edit', element: <TicketEdit/>},
                 ]
             }
         ]
-    },
-    {
-        path: "/logout",
-        element: <LogOut/>,
     },
     {
         path: "/users",
@@ -52,7 +47,7 @@ const router = createBrowserRouter([
             {index: true, element: <UserBoard/>},
             {
                 path: ':userId',
-                element: <UserDetails/>,
+                element: <User/>,
                 // children: [
                 //     {path: 'change-roles', element: <UserEdit/>},
                 // ]

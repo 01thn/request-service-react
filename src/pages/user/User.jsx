@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate, useParams} from "react-router-dom";
 
-const UserDetails = () => {
+const User = () => {
     const {userId} = useParams();
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
@@ -20,7 +20,7 @@ const UserDetails = () => {
                 if (error.response && error.response.status === 403) {
                     navigate("/sign-in");
                 } else {
-                    console.error("Error fetching user details:", error);
+                    console.error("Error fetching user_board details:", error);
                 }
             }
         };
@@ -47,7 +47,7 @@ const UserDetails = () => {
     return (
         <>
             {/*<div>*/}
-            {/*    <button onClick={() => navigate(`/users/${user.id}/change-roles`)}>Change roles</button>*/}
+            {/*    <button onClick={() => navigate(`/users/${user_board.id}/change-roles`)}>Change roles</button>*/}
             {/*</div>*/}
             <section>
                 <h2>{user.username}</h2>
@@ -66,4 +66,4 @@ const UserDetails = () => {
     );
 };
 
-export default UserDetails;
+export default User;
