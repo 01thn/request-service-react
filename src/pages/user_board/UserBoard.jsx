@@ -60,13 +60,13 @@ const UserBoard = () => {
         <>
             <h2>User board</h2>
             <section>
-                <label htmlFor="sortingOrder">Order by register date:</label>
-                <select id="sortingOrder" value={sort} onChange={handleSortingChange}>
+                <label htmlFor="sortingOrder" className="form-label">Order by register date:</label>
+                <select id="sortingOrder" value={sort} onChange={handleSortingChange} className="form-select mb-3">
                     <option value="NO_SORT">No Sorting</option>
                     <option value="ASC">Ascending</option>
                     <option value="DESC">Descending</option>
                 </select>
-                <table border="solid">
+                <table className="table table-striped table-bordered">
                     <thead>
                     <tr>
                         <th>id</th>
@@ -80,9 +80,9 @@ const UserBoard = () => {
                     <tbody>
                     {users.map(user => (
                         <tr key={user.id}>
-                            <Link to={`/users/${user.id}`}>
-                            <td>{user.id}</td>
-                            </Link>
+                            <td>
+                                <Link to={`/users/${user.id}`} className="text-decoration-none">{user.id}</Link>
+                            </td>
                             <td>{user.username}</td>
                             <td>{user.email}</td>
                             <td>{`${user.firstName} ${user.lastName.charAt(0)}.`}</td>
@@ -92,12 +92,12 @@ const UserBoard = () => {
                     ))}
                     </tbody>
                 </table>
-                <div>
-                    <button onClick={handlePrevPage}>Previous Page</button>
+                <div className="mt-3">
+                    <button onClick={handlePrevPage} className="btn btn-secondary me-2">Previous Page</button>
                     <span>Page: {page}</span>
-                    <button onClick={handleNextPage}>Next Page</button>
+                    <button onClick={handleNextPage} className="btn btn-secondary ms-2">Next Page</button>
                 </div>
-                <p>{errorMessage}</p>
+                <p className="mt-3">{errorMessage}</p>
             </section>
         </>
     );

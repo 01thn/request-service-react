@@ -19,7 +19,9 @@ const TicketNavBarComponent = () => {
             <>
                 {
                     (userRoles != null) && (userRoles.includes("ROLE_ADMIN")) && (<li>
-                        <li><NavLink to="/users">Users panel</NavLink></li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" activeclassname="active" to="/users">Users panel</NavLink>
+                        </li>
                     </li>)
                 }
             </>
@@ -32,25 +34,33 @@ const TicketNavBarComponent = () => {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             };
-            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/logout`, config);
+            await axios.get(`${process.env.REACT_APP_SERVER_URL}/logout`, config);
             localStorage.removeItem("token");
             localStorage.removeItem("roles");
             navigate("/sign-in");
-        } catch (error){
+        } catch (error) {
 
         }
     };
 
     return (
-        <nav>
-            <ul>
-                <li><NavLink to="/tickets">Ticket Board</NavLink></li>
-                <li><NavLink to="/tickets/create">Create new ticket</NavLink></li>
-                {userListButtonForAuthorized()}
-                <li>
-                    <button onClick={logout}>Logout</button>
-                </li>
-            </ul>
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <div className="container-fluid">
+                <NavLink className="navbar-brand" to="/tickets">Request Service</NavLink>
+                <div className="collapse navbar-collapse" id="navbarNav">
+                    <ul className="navbar-nav me-auto">
+                        <li className="nav-item">
+                            <NavLink className="nav-link" activeclassname="active" to="/tickets">Ticket Board</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" activeclassname="active" to="/tickets/create">Create new
+                                ticket</NavLink>
+                        </li>
+                        {userListButtonForAuthorized()}
+                    </ul>
+                    <button className="btn btn-outline-danger" onClick={logout}>Logout</button>
+                </div>
+            </div>
         </nav>
     );
 }

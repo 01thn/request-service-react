@@ -62,27 +62,27 @@ const Ticket = () => {
         switch (ticket.status) {
             case "DRAFT":
                 return (
-                    <button onClick={() => changeStatus("SENT")}>Send</button>
+                    <button onClick={() => changeStatus("SENT")} className="btn btn-primary">Send</button>
                 );
             case "SENT":
                 return (
                     <>
                         {(userRoles != null) && (userRoles.includes("ROLE_USER")) ?
-                            <button onClick={() => changeStatus("DRAFT")}>Cancel sending</button> :
-                            <button disabled onClick={() => changeStatus("DRAFT")}>Cancel sending</button>
+                            <button onClick={() => changeStatus("DRAFT")} className="btn btn-primary">Cancel sending</button> :
+                            <button disabled onClick={() => changeStatus("DRAFT")} className="btn btn-primary">Cancel sending</button>
                         }
 
                         {(userRoles != null) && (userRoles.includes("ROLE_OPERATOR") || userRoles.includes("ROLE_ADMIN")) && (
                             <>
-                                <button onClick={() => changeStatus("ACCEPTED")}>Accept</button>
-                                <button onClick={() => changeStatus("REJECTED")}>Reject</button>
+                                <button onClick={() => changeStatus("ACCEPTED")} className="btn btn-primary">Accept</button>
+                                <button onClick={() => changeStatus("REJECTED")} className="btn btn-primary">Reject</button>
                             </>
                         )}
                     </>
                 );
             default:
                 return (
-                    <button disabled>Cancel sending</button>
+                    <button className="btn btn-primary" disabled>Cancel sending</button>
                 );
         }
     };
@@ -92,9 +92,7 @@ const Ticket = () => {
             <>
                 {
                     (userRoles != null) && (userRoles.includes("ROLE_USER") && (ticket.status === "DRAFT") && (
-                        <>
-                            <Link to={`/tickets/${ticket.id}/edit`}>Edit ticket</Link>
-                        </>
+                        <Link to={`/tickets/${ticket.id}/edit`} className="btn btn-primary">Edit ticket</Link>
                     ))
                 }
             </>
@@ -103,23 +101,31 @@ const Ticket = () => {
 
     return (
         <>
-            <div>
-                {getEditButton()}
-                {getAvailableAction()}
+            <div className="container">
+                <div className="row">
+                    <div className="col">
+                        {getEditButton()}
+                        {getAvailableAction()}
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <section className="mt-3">
+                            <h2>{ticket.title}</h2>
+                            <p>Status: {ticket.status}</p>
+                            <p>{ticket.description}</p>
+                            <p>Operator: {ticket.operator != null ? `${ticket.operator.firstName} ${ticket.operator.lastName}` : "No operator"}</p>
+                            <p>{ticket.operator != null ? "Operator email: " + ticket.operator.email : ""}</p>
+                            <p>
+                                <data>Created at: {formatDate(ticket.createdAt)}</data>
+                            </p>
+                            <p>
+                                <data>{ticket.updatedAt != null ? "Last updated at: " + formatDate(ticket.updatedAt) : ""}</data>
+                            </p>
+                        </section>
+                    </div>
+                </div>
             </div>
-            <section>
-                <h2>{ticket.title}</h2>
-                <p>Status: {ticket.status}</p>
-                <p>{ticket.description}</p>
-                <p>Operator: {ticket.operator != null ? `${ticket.operator.firstName} ${ticket.operator.lastName}` : "No operator"}</p>
-                <p>{ticket.operator != null ? "Operator email: " + ticket.operator.email : ""}</p>
-                <p>
-                    <data>Created at: {formatDate(ticket.createdAt)}</data>
-                </p>
-                <p>
-                    <data>{ticket.updatedAt != null ? "Last updated at: " + formatDate(ticket.updatedAt) : ""}</data>
-                </p>
-            </section>
         </>
     );
 };

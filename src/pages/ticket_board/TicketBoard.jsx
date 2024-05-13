@@ -58,16 +58,16 @@ const TicketBoard = () => {
 
     return (
         <>
-            <h2>Ticket board</h2>
+            <h2 className="mt-4 mb-3">Ticket board</h2>
             <section>
-                <label htmlFor="sortingOrder">Order by updating date:</label>
-                <select id="sortingOrder" value={sort} onChange={handleSortingChange}>
+                <label htmlFor="sortingOrder" className="mr-2">Order by updating date:</label>
+                <select id="sortingOrder" value={sort} onChange={handleSortingChange} className="form-select mb-3">
                     <option value="NO_SORT">No Sorting</option>
                     <option value="ASC">Ascending</option>
                     <option value="DESC">Descending</option>
                 </select>
-                <table border="solid">
-                    <thead>
+                <table className="table table-bordered">
+                    <thead className="thead-dark">
                     <tr>
                         <th>Title</th>
                         <th>Description</th>
@@ -81,9 +81,11 @@ const TicketBoard = () => {
                     <tbody>
                     {tickets.map(ticket => (
                         <tr key={ticket.id}>
-                            <Link to={`/tickets/${ticket.id}`}>
-                                <td>{ticket.title}</td>
-                            </Link>
+                            <td>
+                                <Link to={`/tickets/${ticket.id}`} className="text-decoration-none text-dark">
+                                    {ticket.title}
+                                </Link>
+                            </td>
                             <td>{ticket.description}</td>
                             <td>{ticket.status}</td>
                             <td>{ticket.author.username}</td>
@@ -94,12 +96,12 @@ const TicketBoard = () => {
                     ))}
                     </tbody>
                 </table>
-                <div>
-                    <button onClick={handlePrevPage}>Previous Page</button>
+                <div className="d-flex justify-content-between align-items-center">
+                    <button onClick={handlePrevPage} className="btn btn-secondary">Previous Page</button>
                     <span>Page: {page}</span>
-                    <button onClick={handleNextPage}>Next Page</button>
+                    <button onClick={handleNextPage} className="btn btn-secondary">Next Page</button>
                 </div>
-                <p>{errorMessage}</p>
+                <p className="mt-3">{errorMessage}</p>
             </section>
         </>
     );

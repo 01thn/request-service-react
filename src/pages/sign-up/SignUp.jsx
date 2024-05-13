@@ -37,34 +37,42 @@ const SignUp = () => {
     };
 
     return (
-        <div>
-            <h1>Sign Up</h1>
-            <section>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="username">Username</label>
-                        <input type="text" id="username" value={username}
-                               onChange={(changeEvent) => setUsername(changeEvent.target.value)} required/>
-                        <label htmlFor="password">Password</label>
-                        <input type="password" id="password" value={password}
-                               onChange={(changeEvent) => setPassword(changeEvent.target.value)} required/>
-                        <label htmlFor="email">Email</label>
-                        <input type="email" id="email" value={email}
-                               onChange={(changeEvent) => setEmail(changeEvent.target.value)} required/>
-                        <label htmlFor="phone">Phone</label>
-                        <input type="tel" id="phone" value={phone}
-                               onChange={(changeEvent) => setPhone(changeEvent.target.value)} required/>
-                        <label htmlFor="firstName">First name</label>
-                        <input type="text" id="firstName" value={firstName}
-                               onChange={(changeEvent) => setFirstName(changeEvent.target.value)} required/>
-                        <label htmlFor="lastName">Last name</label>
-                        <input type="text" id="lastName" value={lastName}
-                               onChange={(changeEvent) => setLastName(changeEvent.target.value)} required/>
-                    </div>
-                    <button type="submit">Sign Up</button>
-                    <p className="error-msg">{errorMessage}</p>
-                </form>
-            </section>
+        <div className="container">
+            <h1 className="mt-5 mb-4">Sign Up</h1>
+            <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                    <label htmlFor="username" className="form-label">Username</label>
+                    <input type="text" className="form-control" id="username" value={username}
+                           onChange={(e) => setUsername(e.target.value)} required/>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="password" className="form-label">Password</label>
+                    <input type="password" className="form-control" id="password" value={password}
+                           onChange={(e) => setPassword(e.target.value)} required/>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="email" className="form-label">Email</label>
+                    <input type="email" className="form-control" id="email" value={email}
+                           onChange={(e) => setEmail(e.target.value)} required/>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="phone" className="form-label">Phone</label>
+                    <input type="tel" className="form-control" id="phone" value={phone}
+                           onChange={(e) => setPhone(e.target.value)} required/>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="firstName" className="form-label">First Name</label>
+                    <input type="text" className="form-control" id="firstName" value={firstName}
+                           onChange={(e) => setFirstName(e.target.value)} required/>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="lastName" className="form-label">Last Name</label>
+                    <input type="text" className="form-control" id="lastName" value={lastName}
+                           onChange={(e) => setLastName(e.target.value)} required/>
+                </div>
+                <button type="submit" className="btn btn-primary">Sign Up</button>
+                {errorMessage && <p className="error-msg mt-3">{errorMessage}</p>}
+            </form>
         </div>
     );
 }

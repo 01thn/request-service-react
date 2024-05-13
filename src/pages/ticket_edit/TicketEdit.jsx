@@ -47,16 +47,20 @@ const TicketEdit = () => {
 
     return (
         <>
-            <section>
+            <section className="mt-4">
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="title">Title</label>
-                    <input type="text" id="title" value={ticketTitle}
-                           onChange={(changeEvent) => setTicketTitle(changeEvent.target.value)} required/>
-                    <label htmlFor="description">Description</label>
-                    <textarea id="description" value={ticketDescription}
-                              onChange={(changeEvent) => setTicketDescription(changeEvent.target.value)} required/>
-                    <button type="submit">Save</button>
-                    <p>{errorMessage}</p>
+                    <div className="mb-3">
+                        <label htmlFor="title" className="form-label">Title</label>
+                        <input type="text" id="title" value={ticketTitle}
+                               onChange={(changeEvent) => setTicketTitle(changeEvent.target.value)} className="form-control" required/>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="description" className="form-label">Description</label>
+                        <textarea id="description" value={ticketDescription}
+                                  onChange={(changeEvent) => setTicketDescription(changeEvent.target.value)} className="form-control" required/>
+                    </div>
+                    <button type="submit" className="btn btn-primary">Save</button>
+                    <p className="mt-2">{errorMessage}</p>
                 </form>
             </section>
         </>

@@ -29,15 +29,16 @@ const router = createBrowserRouter([
         path: "/tickets",
         element: <TicketLayout/>,
         children: [
-            {index: true, element: <TicketBoard/>},
-            {path: 'create', element: <TicketCreate/>},
+            { index: true, element: <TicketBoard/> },
+            { path: 'create', element: <TicketCreate/> },
             {
                 path: ':ticketId',
                 element: <Ticket/>,
-                children: [
-                    {path: 'edit', element: <TicketEdit/>},
-                ]
-            }
+            },
+            {
+                path: ':ticketId/edit',
+                element: <TicketEdit/>,
+            },
         ]
     },
     {
