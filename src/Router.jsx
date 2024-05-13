@@ -49,9 +49,6 @@ const router = createBrowserRouter([
             {
                 path: ':userId',
                 element: <User/>,
-                // children: [
-                //     {path: 'change-roles', element: <UserEdit/>},
-                // ]
             }
         ]
     },
